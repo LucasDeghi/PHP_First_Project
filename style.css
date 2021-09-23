@@ -1,0 +1,21 @@
+body{
+    background-color: #e5e5e5 ;
+}
+
+.nav-extended{
+    background-image: url("download.jfif");
+    background-size: cover;
+    background-blend-mode:overlay;
+}
+
+nav ul li.active, .tab a.active{
+    border-bottom: solid 2px #fff;
+}
+
+.nav-header h1{
+    text-shadow: 2px 2px 8px #000000;
+}
+
+.card .card-title {
+    font-weight: 700;
+}
