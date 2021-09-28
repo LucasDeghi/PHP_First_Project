@@ -1,0 +1,41 @@
+<?php 
+
+require "Conexao.php";
+
+class AnimesRepositoryPDO{
+
+    private $conexao;
+
+    public function __construct()
+    {
+        $this->conexao = Conexao::criar();
+    }
+
+    public function listarTodos() : array{
+        $AnimesLista = array();
+
+        $sql = "SELECT * from animaction";
+        $animes = $this->conexao->query($sql);
+        while ($anime = $animes->fetchObject()){
+            array_push($AnimesLista, $anime);
+        }
+        return $AnimesLista;
+    }
+
+    public function salvar(Anime $filme) : bool{
+        $bd = Conexao::criar();    
+        $sql = "INSERT INTO animaction (titulo, genero, sinopse, poster) 
+        VALUES (:titulo, :genero, :sinopse, :poster)";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(':titulo', $filme->titulo, PDO::PARAM_STR);
+        $stmt->bindValue(':genero', $filme->genero, PDO::PARAM_STR);
+        $stmt->bindValue(':sinopse', $filme->sinopse, PDO::PARAM_STR);
+        $stmt->bindValue(':poster', $filme->poster, PDO::PARAM_STR);
+
+        return $stmt->execute();
+
+    }
+}
+
+?>
